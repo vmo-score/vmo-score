@@ -1,0 +1,10 @@
+# Packages for VMO
+numpy==1.11.0
+scipy==0.17.0
+matplotlib==1.5.1
+
+# Packages for graphical interface
+Pillow==3.2.0
+
+# Packages for loading configuration file
+PyYAML==3.11

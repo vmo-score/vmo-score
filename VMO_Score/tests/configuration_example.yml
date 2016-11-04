@@ -1,0 +1,59 @@
+# Examples of configuration of a scenario
+# time in number of beats
+
+global:
+  - tempo : # bpm
+
+conditions:
+  - transition : 't_4_3'
+    time-min   :
+    time-max   :
+
+  - transition : 't_3_0'
+    time-min   :
+    time-max   :
+    condition  : "/volume/sensor/pos_x > 10"
+
+  - transition : 't_1_2'
+    time-min   :
+    time-max   :
+    condition  :
+
+  - transition : 't_2_0'
+    time-min   :
+    time-max   :
+    condition  :
+
+  - transition : 't_2_1'
+    time-min   :
+    time-max   :
+    condition  :
+
+  - transition : 't_0_1'
+    time-min   :
+    time-max   :
+    condition  :
+
+  - transition : 't_1_0'
+    time-min   :
+    time-max   :
+    condition  :
+
+  - transition : 't_1_5'
+    time-min   :
+    time-max   :
+    condition  :
+
+actions:
+  - address  : "/volume/sensor/pos_x" # as i-score follows osc addresses, should we put OSC here ?
+    value    : 10
+    time     : 250
+
+oracle :
+  - parameter : 'lrs'
+    value     :
+
+  - parameter : 'continuity'
+    value     :
+
+# for simulation purposes, what sould the time unit be ?

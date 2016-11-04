@@ -1,0 +1,20 @@
+language: python
+matrix:
+  include:
+  - os: osx
+    language: generic
+before_install:
+- ./.travis/deps.sh
+script:
+- ./.travis/build.sh
+after_success:
+- ./.travis/deploy.sh
+deploy:
+  provider: releases
+  api_key:
+    secure: "WKIVJBAybm4fhfbaB14OTTbOwhKR9QGzVwFEtLIsWVzn6sd88N8lgidDOluehQ0FTsste1Bhr6OFQkL8KOxf6yTB8lAxKOvEouj2K28XILieFmkn1hDYKbMsrIp6W27Go3ActDgTH5Ax2yvZOZfeE6XhPLdD1KSH+xOS29FHMSjlgSZ8i1VG3JWE8C0OMtVOsrjle9+6TZLmOv+FDOLG2ybovVavC56MyRf36oq11AdpXO2qJG2mPHFXnBkD2juGz5vU7jbtECvmB4wqzBmyKj3LTdL9HNPZt9tXsBYtdNSj3tPUmkybI1BF2HGkTVXRoGV65jPh4Bk/CH6jLFZNucntKhvurZn17WNlB+jqsL9AaOXKjXTL62yRf/u/5/EPewbGqdP1ssaAYRCmJCDSWkRu+zROSIbSFgE04d6648leYzj2dp96NHR1jKFKHDe/lKNrGLlfMOU5oG1+W9Vw7SBdxMMAiS8nI+6PBtbLv4KM01orDoNNbK+INHWdkv4CCJKOC2Xj99ZnOvhQw/lQGkTUpi/6mT/x7InkvRB2UKIMyUgc9H2siJUGKslICnIx2Y89PuhWTFalw51Nn8pzT0W8jhTHhlAxXlgCjNL3FVq7ct4PEOvOcGFtx60AU51DErVRlbW+zAx5/WHdToEq+GDaow3n66Az7FvFaMCqocw="
+  file: 'dist/vmo-score-$TRAVIS_TAG-OSX.zip'
+  skip_cleanup: true
+  on:
+    tags: true
+    condition: $TRAVIS_OS_NAME = osx

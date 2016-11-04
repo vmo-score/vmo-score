@@ -1,0 +1,64 @@
+environment:
+  matrix:
+    - PYTHON_VERSION: "2.7"
+
+platform:
+  - x86
+  - x64
+
+install:
+  - set PATH=C:\Miniconda\Scripts;%PATH%
+  - ps: If ($env:Platform -Match "x64") {$env:PATH="C:\Miniconda-x64\Scripts;$($env:PATH)"}
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda create -q --name python%PYTHON_VERSION% python=%PYTHON_VERSION%
+  - activate python%PYTHON_VERSION%
+
+  # packages to build .exe
+  - conda install -q --name python%PYTHON_VERSION% setuptools==19.2
+  - pip install -q setuptools==19.2 --ignore-installed
+  - pip install -q https://github.com/pyinstaller/pyinstaller/archive/develop.zip
+
+build_script:
+  # install dependencies
+  - conda install -q --name python%PYTHON_VERSION% --file requirements\ci.txt
+
+  # custom packages
+  - pip install -q git+https://github.com/himito/snakes.git
+  - pip install -q git+https://github.com/himito/vmo.git
+
+  # install scikits.samplerate from http://www.lfd.uci.edu/~gohlke/pythonlibs/
+  - if [%platform%]==[x86] pip install -q ./resources/win-libs/scikits.samplerate-0.3.3-cp27-none-win32.whl
+  - if [%platform%]==[x64] pip install -q ./resources/win-libs/scikits.samplerate-0.3.3-cp27-none-win_amd64.whl
+
+  - pip install -q librosa==0.4.2
+
+  # build windows executable
+  - cp .py-hooks/include-dlls.py VMO_Score/vmo-score.py
+  - cd VMO_Score
+  - pyinstaller.exe --onedir --windowed --icon=../resources/icon.ico --additional-hooks-dir=../.py-hooks vmo-score.py
+
+  # copy dot.exe
+  - appveyor DownloadFile "http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip" -FileName graphviz-2.38.zip
+  - 7z x graphviz-2.38.zip -y > nul
+  - cp release/bin/*.dll dist/vmo-score
+  - cp release/bin/dot.exe dist/vmo-score
+  - cp release/bin/config6 dist/vmo-score
+
+  # compress files
+  - 7z a -tzip vmo-score-%APPVEYOR_REPO_TAG_NAME%-win_%platform%.zip dist/vmo-score
+
+artifacts:
+  - name: Installer
+    path: 'VMO_Score/vmo-score-*.zip'
+
+deploy:
+  release: $(APPVEYOR_REPO_TAG_NAME)
+  provider: GitHub
+  artifact: /.*\.zip/
+  auth_token:
+    secure: 8x32PYJBGCDJ9Dv7UelES0sNF1M77KHCamtL/0UBQR1AjZa9hl6RjghXZHXoKaYD
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true

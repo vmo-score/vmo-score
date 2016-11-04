@@ -1,0 +1,6 @@
+# Runtime requirements
+--requirement ci.txt
+
+# Packages for librosa
+scikits.samplerate==0.3.3
+librosa==0.4.2
