@@ -1,22 +1,25 @@
+"""Module implementing some useful methods."""
+
 import shelve
+
 import yaml
 
 
-def save_shelf(filepath, field, object):
-    """Save an object into a file
+def save_shelf(filepath, field, obj):
+    """Save an object into a file.
 
     Args:
         filepath (str): Path of the file
         field (str): Id of the object in the file
-        object (object): Object to be saved
+        obj (object): Object to be saved
     """
     shelf = shelve.open(filepath)
-    shelf[field] = object
+    shelf[field] = obj
     shelf.close()
 
 
 def load_shelve(filepath, field):
-    """Load a file into an object
+    """Load a file into an object.
 
     Args:
         filepath (str): String representing the path of the file
@@ -32,7 +35,7 @@ def load_shelve(filepath, field):
 
 
 def generate_configuration(filepath, pn):
-    """Generate a configuration file for the Petri Net
+    """Generate a configuration file for the Petri Net.
 
     Args:
         filepath (str): String representing the path of the output
@@ -59,7 +62,7 @@ def generate_configuration(filepath, pn):
 
 
 def load_configuration(filepath):
-    """Load a configuration file
+    """Load a configuration file.
 
     Args:
         filepath: String representing the path of the configuration file
