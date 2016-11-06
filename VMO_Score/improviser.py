@@ -1,3 +1,6 @@
+"""Module implementing methods for the off-line improvisation with an existing
+Petri net"""
+
 from random import randint
 import utils
 import copy
