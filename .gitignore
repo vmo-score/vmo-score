@@ -111,3 +111,6 @@ ENV/
 ### IPythonNotebook ###
 # Temporary data
 .ipynb_checkpoints/
+
+### PyCharm
+.idea
