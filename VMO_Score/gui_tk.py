@@ -38,8 +38,7 @@ class GraphicalInterface(Tkinter.Tk):
         """Add the frame and the widgets for the segmentation tab to a notebook.
 
         Args:
-            nb: Notebook
-                Notebook to be updated.
+            nb (Notebook): Notebook to be updated.
 
         Returns:
             None
@@ -83,8 +82,7 @@ class GraphicalInterface(Tkinter.Tk):
         """Add the frame and the widgets for the petri net tab to a notebook.
 
         Args:
-            nb: Notebook
-                Notebook to be updated.
+            nb (Notebook): Notebook to be updated.
 
         Returns:
             None
@@ -141,10 +139,9 @@ class GraphicalInterface(Tkinter.Tk):
         the oracle, the petri net, and the configuration.
 
         Args:
-            option: int
-                If 1, set the output folder to save the segmentation and the
-                oracle. Otherwise, set the output folder only for the petri net
-                and the configuration.
+            option (int): If 1, set the output folder to save the segmentation
+            and the oracle. Otherwise, set the output folder only for the petri
+            net and the configuration.
 
         Returns:
             None
@@ -168,8 +165,7 @@ class GraphicalInterface(Tkinter.Tk):
         """Show an error message.
 
         Args:
-            error_msg: str
-                Message to be displayed.
+            error_msg (str): Message to be displayed.
 
         Returns:
             None
@@ -181,8 +177,7 @@ class GraphicalInterface(Tkinter.Tk):
         """Show a warning message
 
         Args:
-            msg: str
-                Message to be displayed
+            msg (str): Message to be displayed
 
         Returns:
             None
@@ -273,10 +268,10 @@ class GraphicalInterface(Tkinter.Tk):
 
     @staticmethod
     def viewer(path):
-        """Visualize a png file
+        """Visualize a png file.
 
         Args:
-            path: Path of the image to be visualized
+            path (str): Path of the image to be visualized
 
         Returns:
             None
