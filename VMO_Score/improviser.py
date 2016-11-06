@@ -6,35 +6,49 @@ import utils
 import copy
 from collections import defaultdict
 import snakes.plugins
+
 snakes.plugins.load('tpn', 'snakes.nets', 'nets')
 
 
-class Improviser():
+class Improviser(object):
     """Class representing the off-line improviser"""
+
+    # time unit for the improvisation
     time_unit = 1.0
 
     def __init__(self, pn, path_conf):
-        self.__pn = copy.deepcopy(pn)
+        """Initialization of the Improver class.
+
+        Args:
+            pn (PetriNet): Petri net to be walked
+            path_conf (str): Path to the configuration file
+        """
+        self._pn = copy.deepcopy(pn)
         configuration = utils.load_configuration(path_conf)
-        self.__actions = self._get_actions(configuration)
-        self.__pn.update_from_config(path_conf)
+        self._actions = self._get_actions(configuration)
+        self._pn.update_from_config(path_conf)
         self._add_environment_pn()
         self.restart()
 
     @property
     def pn(self):
         """PetriNet: the Petri net for improvisation"""
-        return self.__pn
+        return self._pn
 
     @property
     def current_time(self):
         """float: the amount of time that has elapsed"""
-        return self.__current_time
+        return self._current_time
 
-    def _get_actions(self, conf):
+    @staticmethod
+    def _get_actions(conf):
         """Return the user actions from the configuration file
         Args:
+            conf (dict): Dictionary representing the configuration file
 
+        Returns:
+            dict: Dictionary whose keys are dates and values are the actions
+            performed at the corresponding date.
         """
         actions = conf['actions']
         new = defaultdict(list)
@@ -43,9 +57,9 @@ class Improviser():
         return new
 
     def _add_environment_pn(self):
-        """Add the environment to a Petri Net
+        """Add the environment to the Petri Net
 
-        Add a new place in a Petri net that denotes the interaction with the
+        Add a new place in the Petri net that denotes the interaction with the
         environment. This new place has arcs to transitions whose guards
         depends on values send by the environment.
         """
@@ -53,11 +67,11 @@ class Improviser():
         pn.add_place(nets.Place('env', []))
 
         for t in pn.transition():
-            if (t.guard != nets.Expression('True')):  # It's different to True
+            if t.guard != nets.Expression('True'):  # It's different to True
                 pn.add_input('env',
                              t.name,
                              nets.Tuple((nets.Variable('a'),
-                             nets.Variable('v'))))
+                                         nets.Variable('v'))))
                 if t.max_time is not None:
                     t1_name = t.name + "_default"
                     pn.add_transition(nets.Transition(t1_name,
@@ -109,12 +123,13 @@ class Improviser():
     def restart(self):
         """Restart to the initial marking of the Petri Net"""
         self.pn.pn.reset()
-        self.current_time = 0.0
+        self._current_time = 0.0
 
     def next_time_unit(self):
-        """Increment the global clock and the transition time by one time-unit"""
+        """Increment the global clock and the transition time by one
+        time-unit"""
         step = self.pn.pn.step()
-        self.current_time += self.time_unit
+        self._current_time += self.time_unit
         for trans in self.pn.pn.transition():
             if (step is None) or (step > 0.0):
                 if trans.time is not None:
@@ -149,7 +164,7 @@ class Improviser():
         n_t = len(enabled_t)
         if n_t > 0:
             t = enabled_t[randint(0, n_t - 1)]
-            print "Firing Transiion ->", t
+            print "Firing Transition ->", t
             self.fire_transition(t)
 
     def is_final_marking(self):
@@ -158,4 +173,4 @@ class Improviser():
         Returns:
             bool: The Petri Net is in a final state
         """
-        return (self.pn.final_place in self.pn.pn.get_marking().keys())
+        return self.pn.final_place in self.pn.pn.get_marking().keys()
