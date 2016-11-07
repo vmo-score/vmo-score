@@ -40,7 +40,7 @@ setup(
     url='https://github.com/vmo-score/vmo-score',
     packages=find_packages(exclude=('tests*', 'docs', 'examples', 'resources', 'requirements')),
     entry_points={'console_scripts':
-                  ['vmo-score=VMO_Score:main']},
+                  ['vmo-score=VMO_Score.main:main']},
     include_package_data=True,
     setup_requires=requirements,
     install_requires=requirements,
