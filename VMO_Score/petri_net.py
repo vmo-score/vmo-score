@@ -8,14 +8,14 @@ import snakes.plugins
 snakes.plugins.load(['tpn', 'gv'], 'snakes.nets', 'nets')
 
 
-class ExpressionError(RuntimeError):
+class ExpressionError(Exception):
     """Class representing an error raised during the conversion to Expressions.
 
     Attributes:
-        args (str): String representing the information of the error.
+        arg (str): String representing the information of the error.
     """
     def __init__(self, arg):
-        self.args = arg
+        self.msg = arg
 
 
 class PetriNet(object):

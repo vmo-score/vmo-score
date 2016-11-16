@@ -28,6 +28,7 @@ class Improviser(object):
         self._actions = self._get_actions(configuration)
         self._pn.update_from_config(path_conf)
         self._add_environment_pn()
+        self._current_time = 0.0
         self.restart()
 
     @property
@@ -52,8 +53,9 @@ class Improviser(object):
         """
         actions = conf['actions']
         new = defaultdict(list)
-        for a in actions:
-            new[a['time']].append(a)
+        if actions is not None:  # if there are no actions
+            for a in actions:
+                new[a['time']].append(a)
         return new
 
     def _add_environment_pn(self):
