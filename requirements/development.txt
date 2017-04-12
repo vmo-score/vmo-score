@@ -3,7 +3,7 @@
 
 # Documentation
 Sphinx==1.4
-sphinx-bootstrap-theme==0.4.8
+sphinx_rtd_theme
 smartypants==1.8.6
 
 # Lint

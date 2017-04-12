@@ -1,5 +1,5 @@
 VMO_Score package
-====================
+=================
 
 .. autosummary::
    :toctree: generated
