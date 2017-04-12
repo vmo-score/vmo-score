@@ -22,7 +22,7 @@ install:
 build_script:
   # install dependencies
   - conda install -q --name python%PYTHON_VERSION% numpy
-  - conda install -q --name python%PYTHON_VERSION% scipy
+  - conda install -q --name python%PYTHON_VERSION% scipy==0.18
   - conda install -q --name python%PYTHON_VERSION% matplotlib
   - conda install -q --name python%PYTHON_VERSION% Pillow
   - pip install -q future

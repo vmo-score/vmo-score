@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 pip install numpy
-pip install scipy
+pip install scipy==0.18
 pip install matplotlib
 pip install future
 pip install Pillow

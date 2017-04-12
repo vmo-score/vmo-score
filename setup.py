@@ -13,7 +13,7 @@ with open('README.rst') as readme_file:
 
 # Dependencies for building C Extensions
 dependencies = ['numpy',
-                'scipy',
+                'scipy==0.18',
                 'matplotlib',
                 'scikits.samplerate==0.3.3',
                 'librosa==0.4.2',
