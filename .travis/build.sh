@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 pip install -r requirements/ci.txt
 pip install scikits.samplerate==0.3.3
 pip install librosa==0.4.2
