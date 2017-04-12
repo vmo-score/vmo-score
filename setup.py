@@ -1,6 +1,5 @@
 import sys
 import pip
-from pip.req import parse_requirements
 from setuptools import setup, find_packages
 
 
@@ -12,20 +11,19 @@ with open('README.rst') as readme_file:
     readme = readme_file.read()
 
 
-parsed_requirements = parse_requirements(
-    'requirements/production.txt',
-    session=pip.download.PipSession()
-)
+# Dependencies for building C Extensions
+dependencies = ['numpy',
+                'scipy',
+                'matplotlib',
+                'scikits.samplerate==0.3.3',
+                'librosa==0.4.2',
+                'future',
+                'Pillow',
+                'PyYAML']
 
-
-parsed_test_requirements = parse_requirements(
-    'requirements/test.txt',
-    session=pip.download.PipSession()
-)
-
-
-requirements = [str(ir.req) for ir in parsed_requirements]
-test_requirements = [str(tr.req) for tr in parsed_test_requirements]
+# Installing the required packages
+for package in dependencies:
+    pip.main(['install', package])
 
 setup(
     name='VMO-Score',
@@ -38,12 +36,12 @@ setup(
     maintainer='Jaime Arias',
     maintainer_email='jaime.arias@inria.fr',
     url='https://github.com/vmo-score/vmo-score',
-    packages=find_packages(exclude=('tests*', 'docs', 'examples', 'resources', 'requirements')),
+    packages=find_packages(exclude=('tests*', 'docs', 'examples', 'resources')),
     entry_points={'console_scripts':
                   ['vmo-score=VMO_Score.main:main']},
     include_package_data=True,
-    setup_requires=requirements,
-    install_requires=requirements,
+    build_requires=dependencies,
+    install_requires=dependencies,
     zip_safe=False,
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -57,6 +55,8 @@ setup(
         'Operating System :: Unix',
         'Operating System :: MacOS'
     ],
-    test_suite='tests',
-    tests_require=test_requirements
+    extras_require={
+        'test': ['pytest', 'pytest-cov'],
+        'docs': ['sphinx', 'sphinx-rtd-theme', 'mock']
+    }
 )
