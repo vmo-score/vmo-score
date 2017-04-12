@@ -14,7 +14,15 @@
 
 import sys
 import os
-import sphinx_bootstrap_theme
+import sphinx_rtd_theme
+
+import mock
+
+MOCK_MODULES = ['numpy', 'scipy', 'matplotlib', 'matplotlib.pyplot', 'matplotlib.cm', 'yaml',
+                'snakes', 'snakes.plugins',
+                'librosa', 'vmo', 'vmo.analysis', 'vmo.analysis.segmentation', 'reprlib']
+for mod_name in MOCK_MODULES:
+    sys.modules[mod_name] = mock.Mock()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -54,7 +62,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'VMO-Score'
-copyright = u'2016, Jaime Arias, Myriam Desainte-Catherine, and Shlomo Dubnov'
+copyright = u'2017, Jaime Arias, Myriam Desainte-Catherine, and Shlomo Dubnov'
 author = u'Jaime Arias, Myriam Desainte-Catherine, and Shlomo Dubnov'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -83,7 +91,7 @@ language = 'en'
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'resources',
-                    'examples', 'requirements']
+                    'examples']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -117,22 +125,19 @@ todo_include_todos = True
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'bootstrap'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    'bootswatch_theme': "simplex",
-    'navbar_site_name': "Packages",
-    'navbar_pagenav': True,
-    'navbar_pagenav_name': "Content",
-    'navbar_sidebarrel': False,
-    'source_link_position': "",
+    'collapse_navigation': False,
+    'display_version': False,
+    'navigation_depth': 3,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
@@ -276,7 +281,7 @@ latex_show_urls = 'footnote'
 # dependencies are not importable at build time
 autodoc_mock_imports = [
     'vmo',
-    'vmo.analysis.segmentation'
+    'vmo.analysis.segmentation',
 ]
 
 # Autodoc directive flags that should be automatically applied to all autodoc

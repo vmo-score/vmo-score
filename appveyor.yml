@@ -21,7 +21,12 @@ install:
 
 build_script:
   # install dependencies
-  - conda install -q --name python%PYTHON_VERSION% --file requirements\ci.txt
+  - conda install -q --name python%PYTHON_VERSION% numpy
+  - conda install -q --name python%PYTHON_VERSION% scipy
+  - conda install -q --name python%PYTHON_VERSION% matplotlib
+  - conda install -q --name python%PYTHON_VERSION% Pillow
+  - pip install -q future
+  - pip install -q PyYAML
 
   # custom packages
   - pip install -q git+https://github.com/himito/snakes.git
