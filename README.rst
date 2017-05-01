@@ -8,13 +8,18 @@ VMO-Score
 .. image:: https://img.shields.io/appveyor/ci/himito/vmo-score/master.svg
     :target: https://ci.appveyor.com/project/himito/vmo-score
 
+
+.. image:: https://readthedocs.org/projects/vmo-score/badge/?version=latest
+    :target: http://vmo-score.readthedocs.io/en/latest/?badge=latest
+
+
 Tool to generate an interactive score to control the improvisation according to
 larger structures found in an audio recording. The underlying theory of the tool
 is presented in:
 
-    Jaime Arias, Myriam Desainte-Catherine, and Shlomo Dubnov. Automatic 
-    Construction of Interactive Machine Improvisation Scenarios from Audio 
-    Recordings. In 4th International Workshop on Musical Metacreation, MUME 2016, 
+    Jaime Arias, Myriam Desainte-Catherine, and Shlomo Dubnov. Automatic
+    Construction of Interactive Machine Improvisation Scenarios from Audio
+    Recordings. In 4th International Workshop on Musical Metacreation, MUME 2016,
     Paris, France, June 27 – July 1, 2016. 2016. URL:
     http://musicalmetacreation.org/buddydrive/file/arias_automatic_construction/.
 
