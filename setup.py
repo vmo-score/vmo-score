@@ -17,6 +17,7 @@ dependencies = ['numpy',
                 'matplotlib',
                 'scikits.samplerate==0.3.3',
                 'librosa==0.4.2',
+                'vmo==0.23.3',
                 'future',
                 'Pillow',
                 'PyYAML']

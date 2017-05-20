@@ -7,7 +7,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import vmo
-import vmo.analysis.segmentation as vse
+import vmo.analysis as van
 import utils
 import collections
 import reprlib
@@ -90,7 +90,7 @@ class Segmentation(object):
 
         # Symbol spectral
         method = 'symbol_spectral'
-        est_boundaries, est_labels = vse.segmentation(cqt_vmo, method=method,
+        est_boundaries, est_labels = van.segmentation(cqt_vmo, method=method,
                                                       connectivity='lrs')
         est_intervals = zip(est_boundaries[:-1], est_boundaries[1:])
         ulabel, invind = np.unique(est_labels, return_inverse=True)
