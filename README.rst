@@ -5,8 +5,8 @@ VMO-Score
     :target: https://travis-ci.org/vmo-score/vmo-score
 
 
-.. image:: https://img.shields.io/appveyor/ci/himito/vmo-score/master.svg
-    :target: https://ci.appveyor.com/project/himito/vmo-score
+.. image:: https://img.shields.io/appveyor/ci/vmo-score/vmo-score/master.svg
+    :target: https://ci.appveyor.com/project/vmo-score/vmo-score
 
 
 .. image:: https://readthedocs.org/projects/vmo-score/badge/?version=latest
